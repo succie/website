@@ -1,0 +1,6 @@
+.Dock {
+  width: 80px;
+  height: calc(100vh - 30px);
+  background-color: #333333;
+  padding: 0;
+}

@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Sarala|Kosugi+Maru');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: 'Sarala', 'Kosugi Maru', sans-serif;
+}
+
+li {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
