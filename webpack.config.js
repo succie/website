@@ -8,7 +8,8 @@ const commonConfig = {
   entry: path.join(__dirname, "client/index.tsx"),
   output: {
     path: path.join(__dirname, "dist/client"),
-    filename: "[name].[contenthash].js"
+    filename: "[name].[contenthash].js",
+    publicPath: '/website'
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"]
