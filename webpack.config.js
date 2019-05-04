@@ -9,7 +9,7 @@ const commonConfig = {
   output: {
     path: path.join(__dirname, "dist/client"),
     filename: "[name].[contenthash].js",
-    publicPath: '/website'
+    publicPath: "/website/"
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"]
@@ -52,7 +52,8 @@ const devConfig = () => {
     devServer: {
       contentBase: path.join(__dirname, "dist/client"),
       host: "0.0.0.0",
-      port: 8080
+      port: 8080,
+      publicPath: "/website/"
     },
     devtool: "inline-source-map"
   });
