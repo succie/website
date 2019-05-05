@@ -49,12 +49,15 @@
   border-bottom: 13px solid #212121;
 }
 
-.PullDown-item.to-admin button {
-  margin-right: 5px;
+.PullDown-item {
   color: #fafafa;
+}
+
+.PullDown-item a {
   display: flex;
   align-items: center;
 }
-.PullDown-item.to-admin button svg {
+
+.PullDown-item svg {
   margin-right: 10px;
 }
