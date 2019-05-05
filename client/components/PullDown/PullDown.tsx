@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCode } from "@fortawesome/free-solid-svg-icons";
 import "./PullDown.css";
 
 const PullDown = () => {
@@ -21,11 +21,16 @@ const PullDown = () => {
       </button>
       {isOpen ? (
         <div className="PullDown-content">
-          <div className="PullDown-item to-admin">
-            <button aria-label="admin page">
-              <FontAwesomeIcon icon={faTools} color="#fafafa" size="2x" />
-              admin page
-            </button>
+          <div className="PullDown-item">
+            <a
+              href="https://github.com/succie/website"
+              target="_blank"
+              rel="noopener"
+              aria-label="source code"
+            >
+              <FontAwesomeIcon icon={faCode} color="#fafafa" />
+              Source Code
+            </a>
           </div>
         </div>
       ) : null}
