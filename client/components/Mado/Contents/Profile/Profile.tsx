@@ -25,8 +25,8 @@ const Profile = () => {
         <p className="career-date">2019/04 ~</p>
         <p className="career-description">dwango</p>
       </div>
-      <div className="Profile-item hobbie">
-        <h1>Hobbie</h1>
+      <div className="Profile-item hobbies">
+        <h1>Hobbies</h1>
         <p>Watching Movies / Hulu, Prime Video</p>
         <p>Gaming / Dead by Daylight</p>
       </div>
