@@ -37,7 +37,7 @@ export const madoActions = {
 };
 
 const initialData: Mado[] = [
-  { id: "Profile", icon: "user", isOpen: false, isActive: false, zIndex: 0 },
+  { id: "Profile", icon: "user", isOpen: true, isActive: true, zIndex: 1 },
   { id: "Links", icon: "link", isOpen: false, isActive: false, zIndex: 0 },
   { id: "Twitter", icon: "twitter", iconPrefix: 'fab', isOpen: false, isActive: false, zIndex: 0 },
   // { id: "Contact", icon: 'envelope', isOpen: false, isActive: false, zIndex: 0 }
