@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.DockItem.is-open::before {
+.DockItem:not(.is-mobile).is-open::before {
   content: "";
   background-color: #dd4814;
   width: 7px;
@@ -15,7 +15,7 @@
   transform: translateY(-50%);
 }
 
-.DockItem:hover::after {
+.DockItem:not(.is-mobile):hover::after {
   content: attr(data-title);
   position: absolute;
   z-index: 1000;
@@ -39,10 +39,10 @@
   outline: none;
 }
 
-.DockItem-button:hover {
+.DockItem:not(.is-mobile).DockItem-button:hover {
   background-color: #757575;
 }
 
-.DockItem.is-open.is-active .DockItem-button {
+.DockItem:not(.is-mobile).is-open.is-active .DockItem-button {
   background-color: #616161;
 }

@@ -4,3 +4,10 @@
   background-color: #333333;
   padding: 0;
 }
+
+.Dock.is-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  align-content: flex-start;
+}

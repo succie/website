@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconPrefix, IconName } from "@fortawesome/fontawesome-svg-core";
 import { madoActions } from "../../store/mado";
 import "./DockItem.css";
+import "./DockItem.is-mobile.css";
 
 type ExternalProps = {
   id: string;
@@ -12,6 +13,7 @@ type ExternalProps = {
   iconPrefix?: string;
   isOpen: boolean;
   isActive: boolean;
+  isMobile: boolean;
 };
 
 type Props = ReturnType<typeof mapDispatchToProps> & ExternalProps;
@@ -28,7 +30,8 @@ const DockItem = (props: Props) => {
     () =>
       classnames("DockItem", {
         "is-open": props.isOpen,
-        "is-active": props.isActive
+        "is-active": props.isActive,
+        "is-mobile": props.isMobile
       }),
     [props.isOpen, props.isActive]
   );

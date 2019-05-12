@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { connect } from "react-redux";
+import classnames from "classnames";
 import { RootState } from "../../store";
 import DockItem from "../DockItem/DockItem";
 import "./Dock.css";
 
 const mapStateToProps = (state: RootState) => {
   return {
-    mados: state.mados
+    mados: state.mados,
+    device: state.device
   };
 };
 
 type Props = ReturnType<typeof mapStateToProps>;
 
 const Dock = (props: Props) => {
+  const cns = useMemo(
+    () => classnames("Dock", { "is-mobile": props.device.isMobile }),
+    [props.device.isMobile]
+  );
+
   return (
-    <div className="Dock">
+    <div className={cns}>
       {props.mados.map(mado => (
         <DockItem
           key={mado.id}
@@ -23,6 +30,7 @@ const Dock = (props: Props) => {
           iconPrefix={mado.iconPrefix}
           isOpen={mado.isOpen}
           isActive={mado.isActive}
+          isMobile={props.device.isMobile}
         />
       ))}
     </div>
