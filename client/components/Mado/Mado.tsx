@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { madoActions, Mado } from "../../store/mado";
 import "./Mado.css";
+import "./Mado.is-mobile.css";
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -16,7 +17,7 @@ const mapDispatchToProps = (dispatch: any) => {
 
 type ExternalProps = {
   numMados: number;
-  content?: ReactNode;
+  isMobile?: boolean;
 };
 
 type Props = ReturnType<typeof mapDispatchToProps> & ExternalProps & Mado;
@@ -27,8 +28,13 @@ const Mado = (props: Props) => {
   const Content = lazy(() => import(`./Contents/${props.id}/${props.id}`));
 
   const cns = useMemo(
-    () => classnames("Mado", { "is-active": props.isActive }),
-    [props.isActive]
+    () =>
+      classnames(
+        "Mado",
+        { "is-active": props.isActive },
+        { "is-mobile": props.isMobile }
+      ),
+    [props.isActive, props.isMobile]
   );
 
   const closeMado = useCallback(() => {
@@ -63,11 +69,14 @@ const Mado = (props: Props) => {
           </button>
         </div>
         <div className="Mado-content">
-          {useMemo(() => (
-            <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>
-              <Content />
-            </Suspense>
-          ), [])}
+          {useMemo(
+            () => (
+              <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>
+                <Content />
+              </Suspense>
+            ),
+            []
+          )}
         </div>
       </div>
     </Draggable>
