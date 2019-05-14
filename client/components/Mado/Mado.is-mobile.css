@@ -1,0 +1,17 @@
+.Mado.is-mobile {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0) !important;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.Mado.is-mobile .Mado-header {
+  border-radius: 0;
+}
+
+.Mado.is-mobile .Mado-content {
+  height: calc(100% - 50px);
+}
