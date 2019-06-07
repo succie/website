@@ -5,11 +5,11 @@ const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const commonConfig = {
-  entry: path.join(__dirname, "client/index.tsx"),
+  entry: path.join(__dirname, "src/index.tsx"),
   output: {
-    path: path.join(__dirname, "dist/client"),
+    path: path.join(__dirname, "dist"),
     filename: "[name].[contenthash].js",
-    publicPath: "/website/"
+    publicPath: "/"
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"]
@@ -50,10 +50,10 @@ const devConfig = () => {
   return Object.assign({}, commonConfig, {
     mode: "development",
     devServer: {
-      contentBase: path.join(__dirname, "dist/client"),
+      contentBase: path.join(__dirname, "dist"),
       host: "0.0.0.0",
       port: 8080,
-      publicPath: "/website/"
+      publicPath: "/"
     },
     devtool: "inline-source-map"
   });
