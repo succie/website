@@ -10,10 +10,6 @@ script:
   - npm run build
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  target_branch: gh-pages
-  local_dir: dist/client
-  on:
-    branch: master
+  provider: firebase
+  token:
+    secure: $FIREBASE_TOKEN
