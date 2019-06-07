@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "serve": "firebase serve --only hosting",
     "build": "run-s clean build:prod",
     "build:prod": "webpack --mode production",
     "build:dev": "webpack --mode development",
-    "clean": "rimraf dist/client",
+    "clean": "rimraf dist",
     "test": "jest"
   },
   "license": "MIT",
