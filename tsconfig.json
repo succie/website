@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-    "charset": "utf-8",
     "target": "esnext",
     "module": "esnext",
-    "lib": ["esnext", "dom"],
-    "jsx": "react",
+    "jsx": "preserve",
     "newLine": "lf",
     "strict": true,
     "noImplicitAny": true,

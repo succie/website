@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "./Header/Header";
 import Dock from "./Dock/Dock";
@@ -23,38 +23,32 @@ const mapDispatchToProps = (dispatch: any) => {
 type Props = ReturnType<typeof mapStateTopProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-class App extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.checkMobile();
-    window.onresize = this.checkMobile;
-  }
+const App = ({ device, setDeviceType }: Props) => {
+  const checkMobile = useCallback(() => {
+    if (window.innerWidth <= 768 && !device.isMobile) setDeviceType(true);
+    else if (window.innerWidth > 768 && device.isMobile) setDeviceType(false);
+  }, [device, setDeviceType]);
 
-  private checkMobile = () => {
-    if (window.innerWidth <= 768 && !this.props.device.isMobile)
-      this.props.setDeviceType(true);
-    else if (window.innerWidth > 768 && this.props.device.isMobile)
-      this.props.setDeviceType(false);
-  };
+  useEffect(() => {
+    window.addEventListener("resize", checkMobile);
+    () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, [checkMobile]);
 
-  render() {
-    return (
-      <div className="App">
-        {this.props.device.isMobile ? (
-          <Mobile />
-        ) : (
-          <>
-            <Header />
-            <Dock />
-            <Field />
-          </>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      {device.isMobile ? (
+        <Mobile />
+      ) : (
+        <>
+          <Header />
+          <Dock />
+          <Field />
+        </>
+      )}
+    </div>
+  );
+};
 
-export default connect(
-  mapStateTopProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateTopProps, mapDispatchToProps)(App);

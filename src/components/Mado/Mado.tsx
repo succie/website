@@ -4,7 +4,7 @@ import Draggable from "react-draggable";
 import classnames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { madoActions, Mado } from "../../store/mado";
+import { madoActions, Mado as MadoType } from "../../store/mado";
 import "./Mado.css";
 import "./Mado.is-mobile.css";
 
@@ -20,7 +20,7 @@ type ExternalProps = {
   isMobile?: boolean;
 };
 
-type Props = ReturnType<typeof mapDispatchToProps> & ExternalProps & Mado;
+type Props = ReturnType<typeof mapDispatchToProps> & ExternalProps & MadoType;
 
 const Mado = (props: Props) => {
   if (!props.isOpen) return null;
