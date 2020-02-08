@@ -3,11 +3,12 @@
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "newLine": "lf",
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node"
-  }
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
 }
