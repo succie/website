@@ -1,6 +1,6 @@
-import React from "react";
-import PullDown from "../PullDown/PullDown";
-import "./Header.css";
+import React from 'react';
+import PullDown from '../PullDown/PullDown';
+import './Header.css';
 
 const Header = () => {
   return (

@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
-import { RootState } from "../../store";
-import DockItem from "../DockItem/DockItem";
-import "./Dock.css";
+import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { RootState } from '../../store';
+import DockItem from '../DockItem/DockItem';
+import './Dock.css';
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -15,10 +15,7 @@ const mapStateToProps = (state: RootState) => {
 type Props = ReturnType<typeof mapStateToProps>;
 
 const Dock = (props: Props) => {
-  const cns = useMemo(
-    () => classnames("Dock", { "is-mobile": props.device.isMobile }),
-    [props.device.isMobile]
-  );
+  const cns = useMemo(() => classnames('Dock', { 'is-mobile': props.device.isMobile }), [props.device.isMobile]);
 
   return (
     <div className={cns}>

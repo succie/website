@@ -1,4 +1,4 @@
-import { map } from "lodash";
+import { map } from 'lodash';
 
 export type Mado = {
   id: string;
@@ -10,9 +10,9 @@ export type Mado = {
 };
 
 export enum MadoActionTypes {
-  OPEN_MADO = "OPEN_MADO",
-  CLOSE_MADO = "CLOSE_MADO",
-  MOVE_FRONT_MADO = "MOVE_FRONT_MADO"
+  OPEN_MADO = 'OPEN_MADO',
+  CLOSE_MADO = 'CLOSE_MADO',
+  MOVE_FRONT_MADO = 'MOVE_FRONT_MADO'
 }
 
 export const madoActions = {
@@ -37,9 +37,9 @@ export const madoActions = {
 };
 
 const initialData: Mado[] = [
-  { id: "Profile", icon: "user", isOpen: true, isActive: true, zIndex: 1 },
-  { id: "Links", icon: "link", isOpen: false, isActive: false, zIndex: 0 },
-  { id: "Twitter", icon: "twitter", iconPrefix: 'fab', isOpen: false, isActive: false, zIndex: 0 },
+  { id: 'Profile', icon: 'user', isOpen: true, isActive: true, zIndex: 1 },
+  { id: 'Links', icon: 'link', isOpen: false, isActive: false, zIndex: 0 },
+  { id: 'Twitter', icon: 'twitter', iconPrefix: 'fab', isOpen: false, isActive: false, zIndex: 0 }
   // { id: "Contact", icon: 'envelope', isOpen: false, isActive: false, zIndex: 0 }
 ];
 
@@ -62,15 +62,12 @@ export const mados = (state: Mado[] = initialData, action: any) => {
       });
     case MadoActionTypes.MOVE_FRONT_MADO:
       return state.map((mado, _, arr) => {
-        const minZIndex = Math.min(...map(arr, "zIndex"));
-        const maxZIndex = Math.max(...map(arr, "zIndex"));
+        const minZIndex = Math.min(...map(arr, 'zIndex'));
+        const maxZIndex = Math.max(...map(arr, 'zIndex'));
         if (mado.id === action.id) {
           // 自身の zIndex が最小でなく, かつ最大であればそのまま返す.
           // そうでなければ maxZIndex + 1 を返す.
-          mado.zIndex =
-            mado.zIndex !== minZIndex && mado.zIndex === maxZIndex
-              ? maxZIndex
-              : maxZIndex + 1;
+          mado.zIndex = mado.zIndex !== minZIndex && mado.zIndex === maxZIndex ? maxZIndex : maxZIndex + 1;
           mado.isActive = true;
         } else {
           mado.isActive = false;

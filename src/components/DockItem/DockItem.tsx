@@ -1,11 +1,11 @@
-import React, { useMemo, useCallback } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconPrefix, IconName } from "@fortawesome/fontawesome-svg-core";
-import { madoActions } from "../../store/mado";
-import "./DockItem.css";
-import "./DockItem.is-mobile.css";
+import React, { useMemo, useCallback } from 'react';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconPrefix, IconName } from '@fortawesome/fontawesome-svg-core';
+import { madoActions } from '../../store/mado';
+import './DockItem.css';
+import './DockItem.is-mobile.css';
 
 type ExternalProps = {
   id: string;
@@ -28,10 +28,10 @@ const mapDispatchToProps = (dispatch: any) => {
 const DockItem = (props: Props) => {
   const cns = useMemo(
     () =>
-      classnames("DockItem", {
-        "is-open": props.isOpen,
-        "is-active": props.isActive,
-        "is-mobile": props.isMobile
+      classnames('DockItem', {
+        'is-open': props.isOpen,
+        'is-active': props.isActive,
+        'is-mobile': props.isMobile
       }),
     [props.isOpen, props.isActive]
   );
@@ -43,16 +43,9 @@ const DockItem = (props: Props) => {
 
   return (
     <div className={cns} data-title={props.id}>
-      <button
-        className="DockItem-button"
-        onClick={() => open(props.id)}
-        aria-label={`dock item ${props.id}`}
-      >
+      <button className="DockItem-button" onClick={() => open(props.id)} aria-label={`dock item ${props.id}`}>
         <FontAwesomeIcon
-          icon={[
-            (props.iconPrefix || "fas") as IconPrefix,
-            props.icon as IconName
-          ]}
+          icon={[(props.iconPrefix || 'fas') as IconPrefix, props.icon as IconName]}
           size="4x"
           color="#fafafa"
         />
@@ -61,7 +54,4 @@ const DockItem = (props: Props) => {
   );
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(DockItem);
+export default connect(null, mapDispatchToProps)(DockItem);

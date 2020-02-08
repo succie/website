@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
-import { connect } from "react-redux";
-import { RootState } from "../../store";
-import Mado from "../Mado/Mado";
-import "./Field.css";
+import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
+import { RootState } from '../../store';
+import Mado from '../Mado/Mado';
+import './Field.css';
 
 const mapStateToProps = (state: RootState) => {
   return {

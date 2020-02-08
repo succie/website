@@ -1,7 +1,7 @@
-import { combineReducers, createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { mados, Mado } from "./mado";
-import { Device, device } from "./device";
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { mados, Mado } from './mado';
+import { Device, device } from './device';
 
 export type RootState = {
   mados: Mado[];
@@ -13,7 +13,4 @@ const rootReducer = combineReducers({
   device
 });
 
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware())
-);
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));

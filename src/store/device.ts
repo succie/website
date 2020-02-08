@@ -3,7 +3,7 @@ export type Device = {
 };
 
 export enum DeviceActionTypes {
-  SET_DEVICE_TYPE = "SET_DEVICE_TYPE"
+  SET_DEVICE_TYPE = 'SET_DEVICE_TYPE'
 }
 
 export const deviceActions = {
@@ -29,4 +29,4 @@ export const device = (state: Device = initialState, action: any) => {
     default:
       return state;
   }
-}
+};

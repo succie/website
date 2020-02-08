@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect } from "react";
-import { connect } from "react-redux";
-import Header from "./Header/Header";
-import Dock from "./Dock/Dock";
-import Field from "./Field/Field";
-import Mobile from "./Mobile";
-import { RootState } from "../store";
-import { deviceActions } from "../store/device";
+import React, { useCallback, useEffect } from 'react';
+import { connect } from 'react-redux';
+import Header from './Header/Header';
+import Dock from './Dock/Dock';
+import Field from './Field/Field';
+import Mobile from './Mobile';
+import { RootState } from '../store';
+import { deviceActions } from '../store/device';
 
 const mapStateTopProps = (state: RootState) => {
   return {
@@ -15,13 +15,11 @@ const mapStateTopProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    setDeviceType: (isMobile: boolean) =>
-      dispatch(deviceActions.setDeviceType(isMobile))
+    setDeviceType: (isMobile: boolean) => dispatch(deviceActions.setDeviceType(isMobile))
   };
 };
 
-type Props = ReturnType<typeof mapStateTopProps> &
-  ReturnType<typeof mapDispatchToProps>;
+type Props = ReturnType<typeof mapStateTopProps> & ReturnType<typeof mapDispatchToProps>;
 
 const App = ({ device, setDeviceType }: Props) => {
   const checkMobile = useCallback(() => {
@@ -30,9 +28,9 @@ const App = ({ device, setDeviceType }: Props) => {
   }, [device, setDeviceType]);
 
   useEffect(() => {
-    window.addEventListener("resize", checkMobile);
+    window.addEventListener('resize', checkMobile);
     () => {
-      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener('resize', checkMobile);
     };
   }, [checkMobile]);
 
