@@ -5,8 +5,7 @@ import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { madoActions, Mado as MadoType } from '../../store/mado';
-import './Mado.css';
-import './Mado.is-mobile.css';
+import styled from 'styled-components';
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -20,17 +19,20 @@ type ExternalProps = {
   isMobile?: boolean;
 };
 
-type Props = ReturnType<typeof mapDispatchToProps> & ExternalProps & MadoType;
+type Props = ReturnType<typeof mapDispatchToProps> &
+  ExternalProps &
+  MadoType &
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Mado = (props: Props) => {
   if (!props.isOpen) return null;
 
   const Content = lazy(() => import(`./Contents/${props.id}/${props.id}`));
 
-  const cns = useMemo(() => classnames('Mado', { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }), [
-    props.isActive,
-    props.isMobile
-  ]);
+  const cns = useMemo(
+    () => classnames('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
+    [props.isActive, props.isMobile]
+  );
 
   const closeMado = useCallback(() => {
     props.close(props.id);
@@ -70,4 +72,79 @@ const Mado = (props: Props) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(Mado);
+const StyledMado = styled(Mado)`
+  position: absolute;
+  width: 640px;
+  height: 360px;
+  color: #f5f5f5;
+  background-color: #424242;
+  border-radius: 7px 7px 0 0;
+  box-shadow: 0px 4px 11px -1px rgba(0, 0, 0, 0.8);
+
+  :not(.is-active) {
+    background-color: #757575;
+    transition: background-color 0.2s linear;
+  }
+
+  .react-draggable-dragging .Mado-header {
+    cursor: grabbing;
+  }
+
+  .Mado-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: #757575;
+    color: #fafafa;
+    border-radius: 7px 7px 0 0;
+    cursor: grab;
+  }
+
+  :not(.is-active) .Mado-header {
+    color: #e0e0e0;
+    transition: background-color 0.2s linear;
+  }
+
+  .Mado-header .Mado-header-close {
+    position: absolute;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #dd4814;
+  }
+
+  :not(.is-active) .Mado-header .Mado-header-close {
+    background-color: transparent;
+  }
+
+  .Mado-content {
+    height: 310px;
+    padding: 5px 10px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &.is-mobile {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transform: translate(0, 0) !important;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  &.is-mobile .Mado-header {
+    border-radius: 0;
+  }
+
+  &.is-mobile .Mado-content {
+    height: calc(100% - 50px);
+  }
+`;
+
+export default connect(null, mapDispatchToProps)(StyledMado);

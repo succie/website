@@ -28,6 +28,7 @@ const App = ({ device, setDeviceType }: Props) => {
   }, [device, setDeviceType]);
 
   useEffect(() => {
+    checkMobile();
     window.addEventListener('resize', checkMobile);
     () => {
       window.removeEventListener('resize', checkMobile);

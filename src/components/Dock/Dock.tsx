@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { RootState } from '../../store';
 import DockItem from '../DockItem/DockItem';
-import './Dock.css';
+import styled from 'styled-components';
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -12,10 +12,11 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps> &
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Dock = (props: Props) => {
-  const cns = useMemo(() => classnames('Dock', { 'is-mobile': props.device.isMobile }), [props.device.isMobile]);
+  const cns = classnames('Dock', props.className, { 'is-mobile': props.device.isMobile });
 
   return (
     <div className={cns}>
@@ -34,4 +35,19 @@ const Dock = (props: Props) => {
   );
 };
 
-export default connect(mapStateToProps)(Dock);
+const StyledDock = styled(Dock)`
+  width: 80px;
+  width: 80px;
+  height: calc(100vh - 30px);
+  background-color: #333333;
+  padding: 0;
+
+  &.is-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    align-content: flex-start;
+  }
+`;
+
+export default connect(mapStateToProps)(StyledDock);

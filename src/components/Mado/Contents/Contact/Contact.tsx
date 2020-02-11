@@ -1,9 +1,11 @@
 import React from 'react';
-import './Contact.css';
+import styled from 'styled-components';
 
-const Contact = () => {
+type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+
+const Contact = (props: Props) => {
   return (
-    <div className="Contact">
+    <div className={`Contact ${props.className}`}>
       <div>
         <span>Your Email</span>
         <input type="email" autoComplete="email" aria-label="E-mail" />
@@ -16,4 +18,10 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+const StyledContact = styled(Contact)`
+  .Contact-message textarea {
+    resize: none;
+  }
+`;
+
+export default StyledContact;

@@ -1,9 +1,0 @@
-.Field {
-  position: absolute;
-  top: 30px;
-  left: 80px;
-  width: calc(100vw - 80px);
-  height: calc(100vh - 30px);
-  background-color: rgb(95, 79, 79);
-  overflow: hidden;
-}

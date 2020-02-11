@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
 import Mado from '../Mado/Mado';
-import './Field.css';
+import styled from 'styled-components';
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -10,13 +10,14 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps> &
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Field = (props: Props) => {
   const numMados = useMemo(() => props.mados.length, []);
 
   return (
-    <div className="Field">
+    <div className={`Field ${props.className}`}>
       {props.mados.map(mado => (
         <Mado key={mado.id} numMados={numMados} {...mado} />
       ))}
@@ -24,4 +25,14 @@ const Field = (props: Props) => {
   );
 };
 
-export default connect(mapStateToProps)(Field);
+const StyledField = styled(Field)`
+  position: absolute;
+  top: 30px;
+  left: 80px;
+  width: calc(100vw - 80px);
+  height: calc(100vh - 30px);
+  background-color: rgb(95, 79, 79);
+  overflow: hidden;
+`;
+
+export default connect(mapStateToProps)(StyledField);
