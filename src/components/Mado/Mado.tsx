@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, ReactNode, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { madoActions, Mado as MadoType } from '../../store/mado';
@@ -30,7 +30,7 @@ const Mado = (props: Props) => {
   const Content = lazy(() => import(`./Contents/${props.id}/${props.id}`));
 
   const cns = useMemo(
-    () => classnames('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
+    () => clsx('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
     [props.isActive, props.isMobile]
   );
 

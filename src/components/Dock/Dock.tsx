@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { RootState } from '../../store';
 import DockItem from '../DockItem/DockItem';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ type Props = ReturnType<typeof mapStateToProps> &
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Dock = (props: Props) => {
-  const cns = classnames('Dock', props.className, { 'is-mobile': props.device.isMobile });
+  const cns = clsx('Dock', props.className, { 'is-mobile': props.device.isMobile });
 
   return (
     <div className={cns}>

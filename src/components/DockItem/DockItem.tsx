@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconPrefix, IconName } from '@fortawesome/fontawesome-svg-core';
 import { madoActions } from '../../store/mado';
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch: any) => {
 const DockItem = (props: Props) => {
   const cns = useMemo(
     () =>
-      classnames('DockItem', props.className, {
+      clsx('DockItem', props.className, {
         'is-open': props.isOpen,
         'is-active': props.isActive,
         'is-mobile': props.isMobile
