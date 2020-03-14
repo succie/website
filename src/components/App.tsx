@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import Header from './Header/Header';
-import Dock from './Dock/Dock';
-import Field from './Field/Field';
+import { useSelector, useDispatch } from 'react-redux';
+import { Header } from './Header/Header';
+import { Dock } from './Dock/Dock';
+import { Field } from './Field/Field';
 import Mobile from './Mobile';
 import { RootState } from '../store';
 import { deviceActions } from '../store/device';

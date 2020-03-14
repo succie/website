@@ -1,78 +1,65 @@
-import React, { useMemo, useCallback, ReactNode, lazy, Suspense } from 'react';
-import { connect } from 'react-redux';
+import React, { useMemo, useCallback, Suspense } from 'react';
 import Draggable from 'react-draggable';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { madoActions, Mado as MadoType } from '../../store/mado';
+import { Mado as MadoType } from '../../store/mado';
 import styled from 'styled-components';
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    close: (id: string) => dispatch(madoActions.closeMado(id)),
-    moveFront: (id: string) => dispatch(madoActions.moveFrontMado(id))
-  };
-};
-
-type ExternalProps = {
+type Props = {
+  mado: MadoType;
   numMados: number;
   isMobile?: boolean;
-};
+  close: (id: string) => void;
+  moveFront: (id: string) => void;
+} & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-type Props = ReturnType<typeof mapDispatchToProps> &
-  ExternalProps &
-  MadoType &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+const Component: React.FC<Props> = ({
+  className,
+  mado,
+  numMados,
+  isMobile = false,
+  close,
+  moveFront,
+  children,
+  ...props
+}) => {
+  const onClose = useCallback(() => {
+    close(mado.id);
+  }, [mado, close]);
 
-const Mado = (props: Props) => {
-  if (!props.isOpen) return null;
+  const onMoveFront = useCallback(() => {
+    moveFront(mado.id);
+  }, [mado, moveFront]);
 
-  const Content = lazy(() => import(`./Contents/${props.id}/${props.id}`));
-
-  const cns = useMemo(
-    () => clsx('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
-    [props.isActive, props.isMobile]
-  );
-
-  const closeMado = useCallback(() => {
-    props.close(props.id);
-  }, []);
-
-  const moveFrontMado = useCallback(() => {
-    props.moveFront(props.id);
-  }, []);
-
-  return (
+  return mado.isOpen ? (
     <Draggable
       handle=".Mado-header"
       defaultPosition={{
-        x: (props.zIndex % (props.numMados + 1)) * 10,
-        y: (props.zIndex % (props.numMados + 1)) * 10
+        x: (mado.zIndex % (numMados + 1)) * 10,
+        y: (mado.zIndex % (numMados + 1)) * 10
       }}
     >
-      <div className={cns} onMouseDownCapture={moveFrontMado} style={{ zIndex: props.zIndex }}>
+      <div
+        className={clsx(className, { isActive: mado.isActive, isMobile })}
+        onMouseDownCapture={onMoveFront}
+        style={{ zIndex: mado.zIndex }}
+      >
         <div className="Mado-header">
           <span className="Mado-header-title">{props.id}</span>
-          <button className="Mado-header-close" onClick={closeMado} aria-label="close">
+          <button className="Mado-header-close" onClick={onClose} aria-label="close">
             <FontAwesomeIcon icon={faTimes} color="#fafafa" />
           </button>
         </div>
         <div className="Mado-content">
-          {useMemo(
-            () => (
-              <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>
-                <Content />
-              </Suspense>
-            ),
-            []
-          )}
+          <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>{children}</Suspense>
         </div>
       </div>
     </Draggable>
-  );
+  ) : null;
 };
 
-const StyledMado = styled(Mado)`
+const StyledComponent = styled(Component)`
   position: absolute;
   width: 640px;
   height: 360px;
@@ -147,4 +134,4 @@ const StyledMado = styled(Mado)`
   }
 `;
 
-export default connect(null, mapDispatchToProps)(StyledMado);
+export const Mado = StyledComponent;

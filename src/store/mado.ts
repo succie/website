@@ -1,9 +1,10 @@
 import map from 'lodash/map';
+import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 
 export type Mado = {
   id: string;
-  icon: string;
-  iconPrefix?: string;
+  icon: IconName;
+  iconPrefix?: IconPrefix;
   isOpen: boolean;
   isActive: boolean;
   zIndex: number;
@@ -56,6 +57,7 @@ export const mados = (state: Mado[] = initialData, action: any) => {
       return state.map(mado => {
         if (mado.id === action.id) {
           mado.isOpen = false;
+          mado.isActive = false;
           mado.zIndex = 0;
         }
         return mado;

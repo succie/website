@@ -1,48 +1,44 @@
-import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { RootState } from '../../store';
-import DockItem from '../DockItem/DockItem';
-import styled from 'styled-components';
+import { Mado, madoActions } from '../../store/mado';
+import { DockItem } from './DockItem/DockItem';
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    mados: state.mados,
-    device: state.device
-  };
-};
+type Props = {
+  mados: Mado[];
+  isMobile: boolean;
+  onItemClick: (id: string) => void;
+} & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-type Props = ReturnType<typeof mapStateToProps> &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-
-const Dock = (props: Props) => {
-  const cns = clsx('Dock', props.className, { 'is-mobile': props.device.isMobile });
-
+const Component: React.FC<Props> = ({ className, mados, isMobile, onItemClick, ...props }) => {
   return (
-    <div className={cns}>
-      {props.mados.map(mado => (
+    <div {...props} className={clsx(className, { isMobile })}>
+      {mados.map(mado => (
         <DockItem
-          key={mado.id}
           id={mado.id}
           icon={mado.icon}
           iconPrefix={mado.iconPrefix}
           isOpen={mado.isOpen}
           isActive={mado.isActive}
-          isMobile={props.device.isMobile}
+          isMobile={isMobile}
+          onItemClick={onItemClick}
+          key={mado.id}
         />
       ))}
     </div>
   );
 };
 
-const StyledDock = styled(Dock)`
+const StyledComponent = styled(Component)`
   width: 80px;
   width: 80px;
   height: calc(100vh - 30px);
   background-color: #333333;
   padding: 0;
 
-  &.is-mobile {
+  &.isMobile {
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
@@ -50,4 +46,23 @@ const StyledDock = styled(Dock)`
   }
 `;
 
-export default connect(mapStateToProps)(StyledDock);
+const madosSelector = (state: RootState) => state.mados;
+const isMobileSelector = (state: RootState) => state.device.isMobile;
+
+const Container: React.FC = () => {
+  const dispatch = useDispatch();
+  const mados = useSelector(madosSelector);
+  const isMobile = useSelector(isMobileSelector);
+
+  const onItemClick = useCallback(
+    (id: string) => {
+      dispatch(madoActions.openMado(id));
+      dispatch(madoActions.moveFrontMado(id));
+    },
+    [dispatch]
+  );
+
+  return <StyledComponent mados={mados} isMobile={isMobile} onItemClick={onItemClick} />;
+};
+
+export const Dock = Container;

@@ -1,31 +1,29 @@
-import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
-import { RootState } from '../../store';
-import Mado from '../Mado/Mado';
+import React, { useCallback, lazy } from 'react';
 import styled from 'styled-components';
+import { RootState } from '../../store';
+import { Mado as MadoType, madoActions } from '../../store/mado';
+import { Mado } from '../Mado/Mado';
+import { useSelector, useDispatch } from 'react-redux';
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    mados: state.mados
-  };
-};
+type Props = {
+  mados: MadoType[];
+  close: (id: string) => void;
+  moveFront: (id: string) => void;
+} & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-type Props = ReturnType<typeof mapStateToProps> &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-
-const Field = (props: Props) => {
-  const numMados = useMemo(() => props.mados.length, []);
-
+const Component: React.FC<Props> = ({ mados, close, moveFront, ...props }) => {
   return (
-    <div className={`Field ${props.className}`}>
-      {props.mados.map(mado => (
-        <Mado key={mado.id} numMados={numMados} {...mado} />
+    <div {...props}>
+      {mados.map(mado => (
+        <Mado mado={mado} numMados={mados.length} close={close} moveFront={moveFront} key={mado.id}>
+          {lazy(() => import(`../Mado/Contents/${props.id}/${props.id}`))}
+        </Mado>
       ))}
     </div>
   );
 };
 
-const StyledField = styled(Field)`
+const StyledComponent = styled(Component)`
   position: absolute;
   top: 30px;
   left: 80px;
@@ -35,4 +33,27 @@ const StyledField = styled(Field)`
   overflow: hidden;
 `;
 
-export default connect(mapStateToProps)(StyledField);
+const madosSelector = (state: RootState) => state.mados;
+
+const Container: React.FC = () => {
+  const dispatch = useDispatch();
+  const mados = useSelector(madosSelector);
+
+  const close = useCallback(
+    (id: string) => {
+      dispatch(madoActions.closeMado(id));
+    },
+    [dispatch]
+  );
+
+  const moveFront = useCallback(
+    (id: string) => {
+      dispatch(madoActions.moveFrontMado(id));
+    },
+    [dispatch]
+  );
+
+  return <StyledComponent mados={mados} close={close} moveFront={moveFront} />;
+};
+
+export const Field = Container;

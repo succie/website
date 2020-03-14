@@ -1,40 +1,40 @@
 import React from 'react';
-import PullDown from '../PullDown/PullDown';
 import styled from 'styled-components';
+import { PullDown } from '../PullDown/PullDown';
+import clsx from 'clsx';
 
 type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const Header = (props: Props) => {
+const Component: React.FC<Props> = ({ className }) => {
   return (
-    <div className={`Header ${props.className}`}>
-      <div className="Header-item center">
-        <h1>succie.net</h1>
-      </div>
-      <div className="Header-item right">
-        <PullDown />
-      </div>
+    <div className={clsx(className)}>
+      <h1 className="title">succie.dev</h1>
+      <PullDown className="menu" />
     </div>
   );
 };
 
-const StyledHeader = styled(Header)`
+const StyledHeader = styled(Component)`
+  position: relative;
+  display: flex;
   width: 100vw;
   height: 30px;
-  background: #222222;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  justify-content: center;
+  background: #222222;
 
-  .Header-item.center h1 {
-    font-size: 1.2rem;
+  .title {
+    margin: 0;
+    padding: 0;
     color: #fafafa;
+    font-size: 18px;
+    line-height: 1em;
   }
 
-  .Header-item.right {
+  .menu {
     position: absolute;
     right: 15px;
   }
 `;
 
-export default StyledHeader;
+export const Header = StyledHeader;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './Home/Home';
-import Header from '../Header/Header';
+import { Header } from '../Header/Header';
 
 const Mobile = () => {
   return (

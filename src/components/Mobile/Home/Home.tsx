@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dock from '../../Dock/Dock';
-import Mado from '../../Mado/Mado';
+import { Dock } from '../../Dock/Dock';
+import { Mado } from '../../Mado/Mado';
 import { RootState } from '../../../store';
 
 const mapStateToProps = (state: RootState) => {
@@ -17,7 +17,7 @@ const Home = (props: Props) => {
     <div className="Home">
       <Dock />
       {props.mados.map(mado => (
-        <Mado key={mado.id} {...mado} numMados={1} isMobile={true} />
+        <Mado key={mado.id} mado={mado} numMados={1} isMobile={true} close={() => {}} moveFront={() => {}} />
       ))}
     </div>
   );

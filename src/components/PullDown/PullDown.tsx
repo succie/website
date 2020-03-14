@@ -1,25 +1,29 @@
 import React, { useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCode, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const PullDown = (props: Props) => {
-  const [isOpen, pullMenu] = useState<boolean>(false);
+const Component: React.FC<Props> = ({ ...props }) => {
+  const [isOpen, pullMenu] = useState(false);
 
-  const handleClick = useCallback(() => {
-    isOpen ? pullMenu(false) : pullMenu(true);
-  }, [isOpen]);
+  const onClick = useCallback(() => {
+    pullMenu(isOpen => !isOpen);
+  }, []);
 
   return (
-    <div className={`PullDown ${props.className}`}>
-      <button className="PullDown-button" onClick={handleClick} aria-label="pull down">
-        <FontAwesomeIcon icon={faCaretDown} color="#fafafa" size="lg" />
+    <div {...props}>
+      <button className="button" onClick={onClick} aria-label="pull down">
+        {isOpen ? (
+          <FontAwesomeIcon icon={faCaretUp} color="#fafafa" size="lg" />
+        ) : (
+          <FontAwesomeIcon icon={faCaretDown} color="#fafafa" size="lg" />
+        )}
       </button>
       {isOpen ? (
-        <div className="PullDown-content">
-          <div className="PullDown-item">
+        <div className="content">
+          <div className="item">
             <a href="https://github.com/succie/website" target="_blank" rel="noopener" aria-label="source code">
               <FontAwesomeIcon icon={faCode} color="#fafafa" />
               Source Code
@@ -31,15 +35,16 @@ const PullDown = (props: Props) => {
   );
 };
 
-const StyledPullDown = styled(PullDown)`
+const StyledComponent = styled(Component)`
   position: relative;
 
-  .PullDown-button {
+  .button {
+    display: block;
     width: 20px;
     height: 20px;
   }
 
-  .PullDown-content {
+  .content {
     position: absolute;
     top: 40px;
     right: 0;
@@ -55,42 +60,42 @@ const StyledPullDown = styled(PullDown)`
     box-sizing: border-box;
   }
 
-  .PullDown-content::before {
-    pointer-events: none;
+  .content::before {
     content: '';
     position: absolute;
+    width: 0px;
+    height: 0px;
     top: -30px;
     right: 10px;
-    width: 0px;
-    height: 0px;
     border: 15px solid transparent;
     border-bottom: 15px solid #afafaf;
+    pointer-events: none;
   }
 
-  .PullDown-content::after {
-    pointer-events: none;
+  .content::after {
     content: '';
     position: absolute;
-    top: -26px;
-    right: 12px;
     width: 0px;
+    right: 12px;
     height: 0px;
+    top: -26px;
     border: 13px solid transparent;
     border-bottom: 13px solid #212121;
+    pointer-events: none;
   }
 
-  .PullDown-item {
+  .item {
     color: #fafafa;
   }
 
-  .PullDown-item a {
+  .item a {
     display: flex;
     align-items: center;
   }
 
-  .PullDown-item svg {
+  .item svg {
     margin-right: 10px;
   }
 `;
 
-export default StyledPullDown;
+export const PullDown = StyledComponent;
