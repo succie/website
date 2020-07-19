@@ -19,7 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "clsx": "^1.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-draggable": "^4.2.0",
