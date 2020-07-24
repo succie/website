@@ -6,7 +6,7 @@ import { faUser, faLink, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { createGlobalStyle } from 'styled-components';
 import { store } from './store';
-import { App } from './components/App';
+import { App } from './App';
 
 library.add(faUser, faLink, faEnvelope, faTwitter);
 

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import { RootState } from '../../store';
-import DockItem from '../DockItem/DockItem';
+import DockItem from '../../molecules/DockItem/DockItem';
 import styled from 'styled-components';
 
 const mapStateToProps = (state: RootState) => {

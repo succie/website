@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import Header from './Header/Header';
-import Dock from './Dock/Dock';
-import Field from './Field/Field';
-import Mobile from './Mobile';
-import { RootState } from '../store';
-import { deviceActions } from '../store/device';
+import Header from './organisms/Header/Header';
+import Dock from './organisms/Dock/Dock';
+import Field from './organisms/Field/Field';
+import Mobile from './templates/Mobile';
+import { RootState } from './store';
+import { deviceActions } from './store/device';
 
 type Props = {
   isMobile: boolean;

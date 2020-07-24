@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
-import Mado from '../Mado/Mado';
+import Mado from '../../molecules/Mado/Mado';
 import styled from 'styled-components';
 
 const mapStateToProps = (state: RootState) => {

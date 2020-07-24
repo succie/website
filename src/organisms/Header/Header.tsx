@@ -1,5 +1,5 @@
 import React from 'react';
-import PullDown from '../PullDown/PullDown';
+import PullDown from '../../molecules/PullDown/PullDown';
 import styled from 'styled-components';
 
 type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;

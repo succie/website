@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dock from '../../Dock/Dock';
-import Mado from '../../Mado/Mado';
-import { RootState } from '../../../store';
+import Dock from '../../../../organisms/Dock/Dock';
+import Mado from '../../../../molecules/Mado/Mado';
+import { RootState } from '../../../../store';
 
 const mapStateToProps = (state: RootState) => {
   return {
