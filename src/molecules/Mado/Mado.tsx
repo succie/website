@@ -1,5 +1,5 @@
-import React, { useMemo, useCallback, ReactNode, lazy, Suspense } from 'react';
-import { connect } from 'react-redux';
+import React, { useMemo, useCallback, lazy, Suspense } from 'react';
+import { useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,27 +7,15 @@ import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { madoActions, Mado as MadoType } from '../../store/mado';
 import styled from 'styled-components';
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    close: (id: string) => dispatch(madoActions.closeMado(id)),
-    moveFront: (id: string) => dispatch(madoActions.moveFrontMado(id))
-  };
-};
-
 type ExternalProps = {
   numMados: number;
   isMobile?: boolean;
 };
 
-type Props = ReturnType<typeof mapDispatchToProps> &
-  ExternalProps &
-  MadoType &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+type Props = ExternalProps & MadoType & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const Mado = (props: Props) => {
-  if (!props.isOpen) return null;
-
-  const Content = lazy(() => import(`./Contents/${props.id}/${props.id}`));
+const Component = (props: Props) => {
+  const dispatch = useDispatch();
 
   const cns = useMemo(
     () => clsx('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
@@ -35,11 +23,11 @@ const Mado = (props: Props) => {
   );
 
   const closeMado = useCallback(() => {
-    props.close(props.id);
+    dispatch(madoActions.closeMado(props.id));
   }, []);
 
   const moveFrontMado = useCallback(() => {
-    props.moveFront(props.id);
+    dispatch(madoActions.moveFrontMado(props.id));
   }, []);
 
   return (
@@ -47,7 +35,7 @@ const Mado = (props: Props) => {
       handle=".Mado-header"
       defaultPosition={{
         x: (props.zIndex % (props.numMados + 1)) * 10,
-        y: (props.zIndex % (props.numMados + 1)) * 10
+        y: (props.zIndex % (props.numMados + 1)) * 10,
       }}
     >
       <div className={cns} onMouseDownCapture={moveFrontMado} style={{ zIndex: props.zIndex }}>
@@ -61,7 +49,7 @@ const Mado = (props: Props) => {
           {useMemo(
             () => (
               <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>
-                <Content />
+                {lazy(() => import(`./Contents/${props.id}/${props.id}`))}
               </Suspense>
             ),
             []
@@ -72,7 +60,7 @@ const Mado = (props: Props) => {
   );
 };
 
-const StyledMado = styled(Mado)`
+const StyledMado = styled(Component)`
   position: absolute;
   width: 640px;
   height: 360px;
@@ -147,4 +135,4 @@ const StyledMado = styled(Mado)`
   }
 `;
 
-export default connect(null, mapDispatchToProps)(StyledMado);
+export const Mado = StyledMado;

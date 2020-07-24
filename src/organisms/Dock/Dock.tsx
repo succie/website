@@ -1,26 +1,24 @@
-import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { RootState } from '../../store';
-import DockItem from '../../molecules/DockItem/DockItem';
+import { DockItem } from '../../molecules/DockItem/DockItem';
 import styled from 'styled-components';
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    mados: state.mados,
-    device: state.device
-  };
-};
+type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-type Props = ReturnType<typeof mapStateToProps> &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+const madosSelector = (state: RootState) => state.mados;
+const isMobileSelector = (state: RootState) => state.device.isMobile;
 
-const Dock = (props: Props) => {
-  const cns = clsx('Dock', props.className, { 'is-mobile': props.device.isMobile });
+const Component = (props: Props) => {
+  const mados = useSelector(madosSelector);
+  const isMobile = useSelector(isMobileSelector);
+
+  const cns = clsx('Dock', props.className, { 'is-mobile': isMobile });
 
   return (
     <div className={cns}>
-      {props.mados.map(mado => (
+      {mados.map((mado) => (
         <DockItem
           key={mado.id}
           id={mado.id}
@@ -28,14 +26,14 @@ const Dock = (props: Props) => {
           iconPrefix={mado.iconPrefix}
           isOpen={mado.isOpen}
           isActive={mado.isActive}
-          isMobile={props.device.isMobile}
+          isMobile={isMobile}
         />
       ))}
     </div>
   );
 };
 
-const StyledDock = styled(Dock)`
+const StyledDock = styled(Component)`
   width: 80px;
   width: 80px;
   height: calc(100vh - 30px);
@@ -50,4 +48,4 @@ const StyledDock = styled(Dock)`
   }
 `;
 
-export default connect(mapStateToProps)(StyledDock);
+export const Dock = StyledDock;

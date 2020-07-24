@@ -1,31 +1,28 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import Mado from '../../molecules/Mado/Mado';
+import { Mado } from '../../molecules/Mado/Mado';
 import styled from 'styled-components';
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    mados: state.mados
-  };
-};
+type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-type Props = ReturnType<typeof mapStateToProps> &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+const madosSelector = (state: RootState) => state.mados;
 
-const Field = (props: Props) => {
-  const numMados = useMemo(() => props.mados.length, []);
+const Component = (props: Props) => {
+  const mados = useSelector(madosSelector);
+
+  const numMados = useMemo(() => mados.length, []);
 
   return (
     <div className={`Field ${props.className}`}>
-      {props.mados.map(mado => (
+      {mados.map((mado) => (
         <Mado key={mado.id} numMados={numMados} {...mado} />
       ))}
     </div>
   );
 };
 
-const StyledField = styled(Field)`
+const StyledField = styled(Component)`
   position: absolute;
   top: 30px;
   left: 80px;
@@ -35,4 +32,4 @@ const StyledField = styled(Field)`
   overflow: hidden;
 `;
 
-export default connect(mapStateToProps)(StyledField);
+export const Field = StyledField;

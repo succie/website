@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './Mobile/Home/Home';
+import { Home } from './Mobile/Home/Home';
 import Header from '../../organisms/Header/Header';
 
 const Mobile = () => {

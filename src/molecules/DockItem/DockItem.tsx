@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconPrefix, IconName } from '@fortawesome/fontawesome-svg-core';
@@ -15,18 +15,11 @@ type ExternalProps = {
   isMobile: boolean;
 };
 
-type Props = ReturnType<typeof mapDispatchToProps> &
-  ExternalProps &
+type Props = ExternalProps &
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    open: (id: string) => dispatch(madoActions.openMado(id)),
-    moveFront: (id: string) => dispatch(madoActions.moveFrontMado(id))
-  };
-};
-
-const DockItem = (props: Props) => {
+const Component = (props: Props) => {
+  const dispatch = useDispatch();
   const cns = useMemo(
     () =>
       clsx('DockItem', props.className, {
@@ -38,8 +31,8 @@ const DockItem = (props: Props) => {
   );
 
   const open = useCallback((id: string) => {
-    props.open(id);
-    props.moveFront(id);
+    dispatch(madoActions.openMado(id));
+    dispatch(madoActions.moveFrontMado(id));
   }, []);
 
   return (
@@ -55,7 +48,7 @@ const DockItem = (props: Props) => {
   );
 };
 
-const StyledDockItem = styled(DockItem)`
+const StyledDockItem = styled(Component)`
   position: relative;
 
   :not(.is-mobile).is-open::before {
@@ -122,4 +115,4 @@ const StyledDockItem = styled(DockItem)`
   }
 `;
 
-export default connect(null, mapDispatchToProps)(StyledDockItem);
+export const DockItem = StyledDockItem;

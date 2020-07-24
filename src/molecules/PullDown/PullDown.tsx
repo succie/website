@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCode, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
@@ -15,7 +15,11 @@ const PullDown = (props: Props) => {
   return (
     <div className={`PullDown ${props.className}`}>
       <button className="PullDown-button" onClick={handleClick} aria-label="pull down">
-        <FontAwesomeIcon icon={faCaretDown} color="#fafafa" size="lg" />
+        {isOpen ? (
+          <FontAwesomeIcon icon={faCaretUp} color="#fafafa" size="lg" />
+        ) : (
+          <FontAwesomeIcon icon={faCaretDown} color="#fafafa" size="lg" />
+        )}
       </button>
       {isOpen ? (
         <div className="PullDown-content">

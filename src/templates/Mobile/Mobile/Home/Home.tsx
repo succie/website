@@ -1,26 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Dock from '../../../../organisms/Dock/Dock';
-import Mado from '../../../../molecules/Mado/Mado';
+import { useSelector } from 'react-redux';
+import { Dock } from '../../../../organisms/Dock/Dock';
+import { Mado } from '../../../../molecules/Mado/Mado';
 import { RootState } from '../../../../store';
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    mados: state.mados
-  };
-};
+const madosSelector = (state: RootState) => state.mados;
 
-type Props = ReturnType<typeof mapStateToProps>;
+export const Home = () => {
+  const mados = useSelector(madosSelector);
 
-const Home = (props: Props) => {
   return (
     <div className="Home">
       <Dock />
-      {props.mados.map(mado => (
+      {mados.map((mado) => (
         <Mado key={mado.id} {...mado} numMados={1} isMobile={true} />
       ))}
     </div>
   );
 };
-
-export default connect(mapStateToProps)(Home);
