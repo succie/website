@@ -8,7 +8,7 @@ const Header = (props: Props) => {
   return (
     <div className={`Header ${props.className}`}>
       <div className="Header-item center">
-        <h1>succie.net</h1>
+        <h1>succie.dev</h1>
       </div>
       <div className="Header-item right">
         <PullDown />

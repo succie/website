@@ -8,7 +8,7 @@ const Profile = (props: Props) => {
   return (
     <div className={`Profile ${props.className}`}>
       <div className="Profile-item name">
-        <h1>SUCCIE</h1>
+        <h1>succie</h1>
       </div>
       <div className="Profile-item job">
         <h1>Front-end Developer</h1>

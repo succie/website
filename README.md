@@ -1,1 +1,1 @@
-# succie.net
+# succie.dev
