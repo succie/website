@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, lazy, Suspense } from 'react';
+import React, { useMemo, useCallback, lazy, Suspense, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
 import clsx from 'clsx';
@@ -17,6 +17,8 @@ type Props = ExternalProps & MadoType & React.DetailedHTMLProps<React.HTMLAttrib
 const Component = (props: Props) => {
   const dispatch = useDispatch();
 
+  const { current: Content } = useRef(lazy(() => import(`./Contents/${props.id}/${props.id}`)));
+
   const cns = useMemo(
     () => clsx('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
     [props.isActive, props.isMobile]
@@ -30,6 +32,7 @@ const Component = (props: Props) => {
     dispatch(madoActions.moveFrontMado(props.id));
   }, []);
 
+  if (!props.isOpen) return null;
   return (
     <Draggable
       handle=".Mado-header"
@@ -46,14 +49,9 @@ const Component = (props: Props) => {
           </button>
         </div>
         <div className="Mado-content">
-          {useMemo(
-            () => (
-              <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>
-                {lazy(() => import(`./Contents/${props.id}/${props.id}`))}
-              </Suspense>
-            ),
-            []
-          )}
+          <Suspense fallback={<FontAwesomeIcon icon={faSpinner} spin />}>
+            <Content />
+          </Suspense>
         </div>
       </div>
     </Draggable>
