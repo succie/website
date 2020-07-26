@@ -8,11 +8,11 @@ type Props = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLD
 const Links = (props: Props) => {
   return (
     <div className={`Links ${props.className}`}>
-      <a className="Links-link" href="https://github.com/succie" target="_blank" rel="noopener">
+      <a className="Links-link" href="https://github.com/succie" target="_blank" rel="noopener noreferrer">
         <FontAwesomeIcon icon={faGithub} size="2x" className="Links-icon" />
         GitHub
       </a>
-      <a className="Links-link" href="https://twitter.com/succie319" target="_blank" rel="noopener">
+      <a className="Links-link" href="https://twitter.com/succie319" target="_blank" rel="noopener noreferrer">
         <FontAwesomeIcon icon={faTwitter} size="2x" className="Links-icon" />
         Twitter
       </a>
