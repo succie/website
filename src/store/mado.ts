@@ -1,7 +1,9 @@
 import map from 'lodash/map';
 
+export type MadoContentId = 'profile' | 'links' | 'twitter';
+
 export type Mado = {
-  id: string;
+  id: MadoContentId;
   icon: string;
   iconPrefix?: string;
   isOpen: boolean;
@@ -12,48 +14,48 @@ export type Mado = {
 export enum MadoActionTypes {
   OPEN_MADO = 'OPEN_MADO',
   CLOSE_MADO = 'CLOSE_MADO',
-  MOVE_FRONT_MADO = 'MOVE_FRONT_MADO'
+  MOVE_FRONT_MADO = 'MOVE_FRONT_MADO',
 }
 
 export const madoActions = {
   openMado: (id: string) => {
     return {
       type: MadoActionTypes.OPEN_MADO,
-      id
+      id,
     };
   },
   closeMado: (id: string) => {
     return {
       type: MadoActionTypes.CLOSE_MADO,
-      id
+      id,
     };
   },
   moveFrontMado: (id: string) => {
     return {
       type: MadoActionTypes.MOVE_FRONT_MADO,
-      id
+      id,
     };
-  }
+  },
 };
 
 const initialData: Mado[] = [
-  { id: 'Profile', icon: 'user', isOpen: true, isActive: true, zIndex: 1 },
-  { id: 'Links', icon: 'link', isOpen: false, isActive: false, zIndex: 0 },
-  { id: 'Twitter', icon: 'twitter', iconPrefix: 'fab', isOpen: false, isActive: false, zIndex: 0 }
+  { id: 'profile', icon: 'user', isOpen: true, isActive: true, zIndex: 1 },
+  { id: 'links', icon: 'link', isOpen: false, isActive: false, zIndex: 0 },
+  { id: 'twitter', icon: 'twitter', iconPrefix: 'fab', isOpen: false, isActive: false, zIndex: 0 },
   // { id: "Contact", icon: 'envelope', isOpen: false, isActive: false, zIndex: 0 }
 ];
 
 export const mados = (state: Mado[] = initialData, action: any) => {
   switch (action.type) {
     case MadoActionTypes.OPEN_MADO:
-      return state.map(mado => {
+      return state.map((mado) => {
         if (mado.id === action.id) {
           mado.isOpen = true;
         }
         return mado;
       });
     case MadoActionTypes.CLOSE_MADO:
-      return state.map(mado => {
+      return state.map((mado) => {
         if (mado.id === action.id) {
           mado.isOpen = false;
           mado.zIndex = 0;

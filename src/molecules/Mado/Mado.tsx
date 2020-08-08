@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, lazy, Suspense, useRef } from 'react';
+import React, { useMemo, useCallback, Suspense, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
 import clsx from 'clsx';
@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { madoActions, Mado as MadoType } from '../../store/mado';
 import styled from 'styled-components';
+import { ContentsMap } from './Contents';
 
 type ExternalProps = {
   numMados: number;
@@ -17,7 +18,7 @@ type Props = ExternalProps & MadoType & React.DetailedHTMLProps<React.HTMLAttrib
 const Component = (props: Props) => {
   const dispatch = useDispatch();
 
-  const { current: Content } = useRef(lazy(() => import(`./Contents/${props.id}/${props.id}`)));
+  const { current: Content } = useRef(ContentsMap[props.id]);
 
   const cns = useMemo(
     () => clsx('Mado', props.className, { 'is-active': props.isActive }, { 'is-mobile': props.isMobile }),
