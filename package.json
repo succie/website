@@ -10,6 +10,7 @@
     "build": "run-s clean build:prod",
     "build:prod": "webpack --mode production",
     "build:dev": "webpack --mode development",
+    "deploy": "firebase deploy",
     "prettier": "prettier --write 'src/**/*.@(ts|tsx)'",
     "lint": "eslint src/**",
     "clean": "rimraf dist"
