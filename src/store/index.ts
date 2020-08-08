@@ -10,7 +10,7 @@ export type RootState = {
 
 const rootReducer = combineReducers({
   mados,
-  device
+  device,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));

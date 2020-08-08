@@ -3,20 +3,20 @@ export type Device = {
 };
 
 export enum DeviceActionTypes {
-  SET_DEVICE_TYPE = 'SET_DEVICE_TYPE'
+  SET_DEVICE_TYPE = 'SET_DEVICE_TYPE',
 }
 
 export const deviceActions = {
   setDeviceType: (isMobile: boolean) => {
     return {
       type: DeviceActionTypes.SET_DEVICE_TYPE,
-      isMobile
+      isMobile,
     };
-  }
+  },
 };
 
 const initialState: Device = {
-  isMobile: false
+  isMobile: false,
 };
 
 export const device = (state: Device = initialState, action: any) => {
@@ -24,7 +24,7 @@ export const device = (state: Device = initialState, action: any) => {
     case DeviceActionTypes.SET_DEVICE_TYPE:
       return {
         ...state,
-        isMobile: action.isMobile
+        isMobile: action.isMobile,
       };
     default:
       return state;

@@ -15,8 +15,7 @@ type ExternalProps = {
   isMobile: boolean;
 };
 
-type Props = ExternalProps &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+type Props = ExternalProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const Component = (props: Props) => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const Component = (props: Props) => {
       clsx('DockItem', props.className, {
         'is-open': props.isOpen,
         'is-active': props.isActive,
-        'is-mobile': props.isMobile
+        'is-mobile': props.isMobile,
       }),
     [props.isOpen, props.isActive]
   );

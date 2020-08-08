@@ -24,7 +24,12 @@ const PullDown = (props: Props) => {
       {isOpen ? (
         <div className="PullDown-content">
           <div className="PullDown-item">
-            <a href="https://github.com/succie/website" target="_blank" rel="noopener noreferrer" aria-label="source code">
+            <a
+              href="https://github.com/succie/website"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="source code"
+            >
               <FontAwesomeIcon icon={faCode} color="#fafafa" />
               Source Code
             </a>
