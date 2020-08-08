@@ -17,15 +17,9 @@ module.exports = {
       version: 'detect',
     },
   },
-  overrides: [
-    {
-      files: ['**/*.tsx'],
-      rules: {
-        'react/prop-types': 'off',
-      },
-    },
-  ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/display-name': 'off',
+    'react/prop-types': 'off',
   },
 };
