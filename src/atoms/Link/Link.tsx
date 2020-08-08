@@ -5,14 +5,9 @@ type Props = React.ComponentPropsWithoutRef<'a'> & {
   newTab?: boolean;
 };
 
-const Component = forwardRef<HTMLAnchorElement, Props>((props, ref) => {
+const Component = forwardRef<HTMLAnchorElement, Props>(({ newTab, ...props }, ref) => {
   return (
-    <a
-      {...props}
-      ref={ref}
-      target={props.newTab ? '_blank' : undefined}
-      rel={props.newTab ? 'noopener noreferrer' : undefined}
-    />
+    <a {...props} ref={ref} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined} />
   );
 });
 
