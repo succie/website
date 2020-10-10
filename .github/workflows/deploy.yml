@@ -1,0 +1,20 @@
+name: Deploy to firebase
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: npm install
+      - run: npm run build:prod
+      - run: npm run deploy -- --token ${{ secrets.FIREBASE_TOKEN }}
