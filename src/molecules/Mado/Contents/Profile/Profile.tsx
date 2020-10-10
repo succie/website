@@ -17,7 +17,7 @@ const Profile = (props: Props) => {
       </div>
       <div className="Profile-item hobbies">
         <h1>Hobbies</h1>
-        <p>Watching Movies / Netflix, Prime Video, Disney +, Hulu</p>
+        <p>Watching Movies / Netflix, Prime Video, D anime, Disney +, Hulu</p>
         <p>Gaming / Apex Legends, Dead by Daylight</p>
       </div>
     </div>
